@@ -2,12 +2,13 @@ import alt from '../alt'
 import actions from '../actions';
 import {decorate,bind,datasource} from 'alt-utils/lib/decorators'
 import ChannelSource from '../sources/ChannelSource'
+import MessageSource from '../sources/MessageSource'
 
-@datasource(ChannelSource)
+@datasource(ChannelSource, MessageSource)
 @decorate(alt)
 class ChatStore {
     constructor() {
-        this.state = {user: null, channels: null}
+        this.state = {user: null, channels: null, messages: null}
     }
 
     @bind(actions.login)
@@ -19,16 +20,26 @@ class ChatStore {
     channelsReceived(channels) {
         let selectedChannel;
         _(channels)
+            .keys()
+            .each((key, index)=> {
+                channels[key].key = key;
+                if (index == 0) {
+                    channels[key].selected = true;
+                    selectedChannel = channels[key]
+                }
+            })
+        this.setState({channels, selectedChannel})
+        this.getInstance().getMessages();
+    }
+
+    @bind(actions.messagesReceived)
+    messagesReceived(messages) {
+        _(messages)
         .keys()
         .each((key,index)=>{
-            channels[key].key = key;
-            if(index==0){
-                channels[key].selected = true;
-                selectedChannel = channels[key]
-            }
+            messages[key].key = key;
         })
-        //.value()
-        this.setState({channels,selectedChannel})
+        this.setState({messages})
     }
 }
 export default alt.createStore(ChatStore)

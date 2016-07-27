@@ -4,18 +4,21 @@
 import alt from '../alt';
 import firebase from 'firebase'
 class Actions {
-    constructor(){
+    constructor() {
         this.generateActions(
             'channelsReceived',
-            'channelsFailed'
+            'channelsFailed',
+            'messagesReceived',
+            'messagesFailed'
         )
     }
+
     login(args) {
         return (dispatch)=> {
             var provider = new firebase.auth.FacebookAuthProvider();
-            firebase.auth().signInWithPopup(provider).then(function(result) {
-             dispatch(result.user);
-            }).catch(error=>{
+            firebase.auth().signInWithPopup(provider).then(function (result) {
+                dispatch(result.user);
+            }).catch(error=> {
                 console.log(error)
             })
 
