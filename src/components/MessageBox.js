@@ -2,7 +2,8 @@ import React from 'react';
 import {Card} from 'material-ui/Card';
 import  TextField from 'material-ui/TextField';
 import trim from 'trim';
-import firebaseRef from '../firebase'
+import firebaseRef from '../firebase';
+import actions from '../actions';
 class MessageBox extends React.Component {
     constructor(props) {
         super(props);
@@ -37,10 +38,11 @@ class MessageBox extends React.Component {
     onKeyUp(evt){
         if(evt.keyCode == 13 && trim(this.state.message)!=''){
             evt.preventDefault();
-            console.log(this.state.message);
-            firebaseRef.database().ref('/messages/firebase').push({
-                message:this.state.message
-            })
+            actions.sendMessage(this.state.message)
+            //console.log(this.state.message);
+            //firebaseRef.database().ref('/messages/firebase').push({
+            //    message:this.state.message
+            //})
             this.setState({
                 message:''
             })

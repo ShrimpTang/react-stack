@@ -8,7 +8,7 @@ import MessageSource from '../sources/MessageSource'
 @decorate(alt)
 class ChatStore {
     constructor() {
-        this.state = {user: null, channels: null, messages: null}
+        this.state = {user: null, channels: null, messages: null, messagesLoading: true, message: ""}
     }
 
     @bind(actions.login)
@@ -28,8 +28,10 @@ class ChatStore {
                     selectedChannel = channels[key]
                 }
             })
-        this.setState({channels, selectedChannel})
-        this.getInstance().getMessages();
+        this.setState({channels, selectedChannel});
+        setTimeout(()=> {
+            this.getInstance().getMessages()
+        }, 10)
     }
 
     @bind(actions.messagesReceived)
@@ -39,18 +41,39 @@ class ChatStore {
             .each((key, index)=> {
                 messages[key].key = key;
             })
-        this.setState({messages})
+        setTimeout(()=> {
+            this.setState({messages, messagesLoading: false})
+        }, 10)
+
     }
 
     @bind(actions.channelOpened)
     channelOpened(selectedChannel) {
-        _.each(_.values(this.state.channels),c=>{c.selected = false;});
+        _.each(_.values(this.state.channels), c=> {
+            c.selected = false;
+        });
         selectedChannel.selected = true;
         this.setState({
-            channels:this.state.channels,
+            channels: this.state.channels,
             selectedChannel
         });
-        this.getInstance().getMessages();
+
+        setTimeout(()=> {
+            this.getInstance().getMessages();
+        }, 10)
     }
+
+    @bind(actions.messagesLoading)
+    messagesLoading() {
+        this.setState({messagesLoading: true})
+    }
+
+    @bind(actions.sendMessage)
+    sendMessage(message) {
+        this.setState({message});
+        setTimeout(()=>{this.getInstance().sendMessage()},10)
+    }
+
+
 }
 export default alt.createStore(ChatStore)

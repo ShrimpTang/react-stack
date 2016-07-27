@@ -4,6 +4,21 @@ import firebase from '../firebase';
 let ref = null;
 
 let MessageSource = {
+    sendMessage: {
+        remote(state){
+            return new Promise((resolve, reject)=> {
+                if (!ref) {
+                    return resolve()
+                }
+                ref.push({
+                    message: state.message
+                });
+                resolve();
+            })
+        },
+        success: actions.messageSendSuccess,
+        error: actions.messageSendError
+    },
     getMessages: {
         remote(state){
             if (ref) {
@@ -18,7 +33,8 @@ let MessageSource = {
             })
         },
         success: actions.messagesReceived,
-        error: actions.messagesFailed
+        error: actions.messagesFailed,
+        loading: actions.messagesLoading
     }
 }
 export default MessageSource;
