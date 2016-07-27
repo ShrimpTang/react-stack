@@ -44,7 +44,7 @@ class ChatStore {
 
     @bind(actions.channelOpened)
     channelOpened(selectedChannel) {
-        _.values(this.state.channels,c=>{c.selected = false});
+        _.each(_.values(this.state.channels),c=>{c.selected = false;});
         selectedChannel.selected = true;
         this.setState({
             channels:this.state.channels,
