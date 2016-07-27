@@ -71,7 +71,20 @@ class ChatStore {
     @bind(actions.sendMessage)
     sendMessage(message) {
         this.setState({message});
-        setTimeout(()=>{this.getInstance().sendMessage()},10)
+        setTimeout(()=> {
+            this.getInstance().sendMessage()
+        }, 10)
+    }
+
+    @bind(actions.messageReceived)
+    messageReceived(message) {
+        if(this.state.messages[message.key]){
+            return;
+        }
+        this.state.messages[message.key] = message;
+        this.setState({
+            messages: this.state.messages
+        })
     }
 
 

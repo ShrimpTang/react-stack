@@ -14,7 +14,8 @@ class Actions {
             'messagesLoading',
             'sendMessage',
             'messageSendSuccess',
-            'messageSendError'
+            'messageSendError',
+            'messageReceived'
         )
     }
 

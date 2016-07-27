@@ -39,10 +39,6 @@ class MessageBox extends React.Component {
         if(evt.keyCode == 13 && trim(this.state.message)!=''){
             evt.preventDefault();
             actions.sendMessage(this.state.message)
-            //console.log(this.state.message);
-            //firebaseRef.database().ref('/messages/firebase').push({
-            //    message:this.state.message
-            //})
             this.setState({
                 message:''
             })

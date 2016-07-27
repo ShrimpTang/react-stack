@@ -28,6 +28,11 @@ let MessageSource = {
             return new Promise((resolve, reject)=> {
                 ref.once('value').then(snapshot=> {
                     var messages = snapshot.val();
+                    ref.on('child_added',msg=>{
+                        var message = msg.val()
+                        message.key = msg.key;
+                        actions.messageReceived(message)
+                    })
                     resolve(messages);
                 })
             })
