@@ -1,5 +1,6 @@
 import React from 'react';
 import {ListItem}  from 'material-ui/List';
+import actions from '../actions'
 class Channel extends React.Component {
     constructor(props) {
         super(props);
@@ -8,12 +9,16 @@ class Channel extends React.Component {
     render() {
         var channel = this.props.channel;
         var style = {};
-        if(channel.selected){
+        if (channel.selected) {
             style.backgroundColor = "#f0f0f0";
         }
         return (
-            <ListItem style={style} primaryText={channel.name}/>
+            <ListItem style={style} primaryText={channel.name} onClick={this.onClick.bind(this)}/>
         )
+    }
+
+    onClick() {
+        actions.channelOpened(this.props.channel)
     }
 }
 export default Channel;

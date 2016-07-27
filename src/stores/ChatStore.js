@@ -35,11 +35,22 @@ class ChatStore {
     @bind(actions.messagesReceived)
     messagesReceived(messages) {
         _(messages)
-        .keys()
-        .each((key,index)=>{
-            messages[key].key = key;
-        })
+            .keys()
+            .each((key, index)=> {
+                messages[key].key = key;
+            })
         this.setState({messages})
+    }
+
+    @bind(actions.channelOpened)
+    channelOpened(selectedChannel) {
+        _.values(this.state.channels,c=>{c.selected = false});
+        selectedChannel.selected = true;
+        this.setState({
+            channels:this.state.channels,
+            selectedChannel
+        });
+        this.getInstance().getMessages();
     }
 }
 export default alt.createStore(ChatStore)

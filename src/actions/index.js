@@ -9,7 +9,9 @@ class Actions {
             'channelsReceived',
             'channelsFailed',
             'messagesReceived',
-            'messagesFailed'
+            'messagesFailed',
+            'channelOpened'
+
         )
     }
 
