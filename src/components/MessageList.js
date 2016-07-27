@@ -2,7 +2,7 @@ import React from 'react';
 import Message from './Message'
 import {Card} from 'material-ui/Card'
 import {List}  from 'material-ui/List'
-import firebaseRef from '../firebase/firebase'
+import firebaseRef from '../firebase'
 import _ from 'lodash';
 class MessageList extends React.Component {
     constructor(props) {

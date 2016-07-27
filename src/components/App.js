@@ -24,7 +24,7 @@ class App extends React.Component {
 
     render() {
         var view = <Login/>;
-        if (this.props.user != null) {
+        if (true || this.props.user != null) {
             view = (
                 <div>
                     <div style={{

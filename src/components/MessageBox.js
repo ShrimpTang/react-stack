@@ -2,7 +2,7 @@ import React from 'react';
 import {Card} from 'material-ui/Card';
 import  TextField from 'material-ui/TextField';
 import trim from 'trim';
-import firebaseRef from '../firebase/firebase'
+import firebaseRef from '../firebase'
 class MessageBox extends React.Component {
     constructor(props) {
         super(props);
