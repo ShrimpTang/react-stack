@@ -13,11 +13,12 @@ class Channel extends React.Component {
             style.backgroundColor = "#f0f0f0";
         }
         return (
-            <ListItem style={style} primaryText={channel.name} onClick={this.onClick.bind(this)}/>
+            <ListItem style={style} primaryText={channel.name} href={"/#/chat/"+channel.key}/>
         )
     }
 
     onClick() {
+        // onClick={this.onClick.bind(this)}
         actions.channelOpened(this.props.channel)
     }
 }

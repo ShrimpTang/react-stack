@@ -8,7 +8,7 @@ import {Router,Route,Link,IndexRoute,Redirect,hashHistory} from 'react-router';
 
 function auth(nextState, replace) {
     if (!ChatStore.getState().user) {
-        replace({nextPathname: nextState.location.pathname}, '/login')
+        replace('/login')
     }
 
 }
@@ -16,6 +16,7 @@ ReactDOM.render(
     <Router history={hashHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Chat} onEnter={auth}></IndexRoute>
+            <Route path="chat/:channel" component={Chat} onEnter={auth}></Route>
             <Route path="login" component={Login}></Route>
         </Route>
     </Router>

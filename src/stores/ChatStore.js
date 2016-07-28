@@ -23,8 +23,7 @@ class ChatStore {
             .keys()
             .each((key, index)=> {
                 channels[key].key = key;
-                if (index == 0) {
-                    channels[key].selected = true;
+                if (channels[key].selected) {
                     selectedChannel = channels[key]
                 }
             })
@@ -78,7 +77,7 @@ class ChatStore {
 
     @bind(actions.messageReceived)
     messageReceived(message) {
-        if(this.state.messages[message.key]){
+        if (this.state.messages[message.key]) {
             return;
         }
         this.state.messages[message.key] = message;

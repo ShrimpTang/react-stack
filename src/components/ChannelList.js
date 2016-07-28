@@ -9,13 +9,18 @@ import connectToStores from 'alt-utils/lib/connectToStores'
 class ChannelList extends React.Component {
     constructor(props) {
         super(props);
-        ChatStore.getChannels()
+//        ChatStore.getChannels()
+    }
 
-        this.state = {
-            channels: [
-                'dog`',
-                'cat'
-            ]
+    componentDidMount() {
+        this.selectedChannel = this.props.params.channel;
+        ChatStore.getChannels(this.selectedChannel)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.selectedChannel != nextProps.params.channel) {
+            this.selectedChannel = nextProps.params.channel;
+            ChatStore.getChannels(this.selectedChannel)
         }
     }
 

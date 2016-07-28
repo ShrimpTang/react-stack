@@ -27,7 +27,7 @@ class Chat extends React.Component {
                         maxWidth:1200,
                         width:'100%'
                     }}>
-                    <ChannelList/>
+                    <ChannelList {...this.props}/>
                     <MessageList/>
                 </div>
                 <MessageBox/>
