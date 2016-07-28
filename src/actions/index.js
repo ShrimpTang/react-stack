@@ -3,6 +3,7 @@
  */
 import alt from '../alt';
 import firebase from 'firebase'
+import {hashHistory} from 'react-router'
 class Actions {
     constructor() {
         this.generateActions(
@@ -19,15 +20,15 @@ class Actions {
         )
     }
 
-    login(args) {
+    login() {
         return (dispatch)=> {
             var provider = new firebase.auth.FacebookAuthProvider();
             firebase.auth().signInWithPopup(provider).then(function (result) {
                 dispatch(result.user);
+                hashHistory.push('/')
             }).catch(error=> {
                 console.log(error)
             })
-
         }
     }
 }
